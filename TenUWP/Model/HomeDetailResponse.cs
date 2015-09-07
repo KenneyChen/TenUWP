@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace TenUWP.Model
 {
     public class HomeDetailModel
     {
-        public int id { get; set; }
+        public string id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public string Authorbrief { get; set; }
+        public string Desc { get; set; }
         public int Times { get; set; }
 
         public List<HomeDetailActicleModel> Acticles { get; set; }
@@ -44,6 +46,12 @@ namespace TenUWP.Model
     {
         public string Image { get; set; }
         public string Text { get; set; }
+        
+        //[Newtonsoft.Json.JsonIgnore]
+        public Visibility ImageVisibility
+        {
+            get; set;
+        }
     }
 
     public class HomeDetailResponse

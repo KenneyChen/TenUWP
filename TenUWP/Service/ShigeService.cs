@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TenUWP.Model;
+using Windows.UI.Xaml;
 using ZHC.Common.UWP;
 using ZHC.Common.UWP.Storage;
 
@@ -40,12 +41,13 @@ namespace TenUWP.Service
                     Date = new DateTime(item.publishtime).ToString("yyyy-MM-dd"),
                     TitleImage = Contants.BaseUrl + "/" + item.image,
                     Summary = item.summary,
+                    id = item.id,
                 };
             }
             return ids;
         }
 
-        public async Task<HomeDetailModel> GetHomeDetail(int id)
+        public async Task<HomeDetailModel> GetHomeDetail(string id)
         {
             var ret = await StorageHelper.GetCacheAsync<HomeDetailModel>("HomeDetail_" + id, async () =>
             {
@@ -54,37 +56,39 @@ namespace TenUWP.Service
                 {
                     HomeDetailModel model = new HomeDetailModel
                     {
+                        Desc = response.text1.Replace(System.Environment.NewLine, Environment.NewLine + "      "),
                         Title = response.title,
                         Author = response.author,
                         Times = response.times,
                         TitleImage = Contants.BaseUrl + "/" + response.imageforplay,
                         Date = new DateTime(response.publishtime).ToString("yyyy-MM-dd"),
+                        urlforplay = response.urlforplay,
                         Acticles = new List<HomeDetailActicleModel>
                         {
+                            //new HomeDetailActicleModel
+                            //{
+                            //     Image= Contants.BaseUrl + "/"+ response.image1,
+                            //     Text="",
+                            //},
                             new HomeDetailActicleModel
                             {
-                                 Image= Contants.BaseUrl + "/"+ response.image1,
-                                 Text=response.text1.Replace(@"\r\n","&#13;&#10;&#9;　　 &#13;&#10;&#9;"),
+                                 Image= Contants.BaseUrl + "/" +response.image1,
+                                 Text=response.text2.Replace(System.Environment.NewLine,Environment.NewLine+"      "),
                             },
                             new HomeDetailActicleModel
                             {
                                  Image= Contants.BaseUrl + "/" +response.image2,
-                                 Text=response.text2.Replace(@"\r\n","&#13;&#10;&#9;　　 &#13;&#10;&#9;"),
+                                 Text=response.text3.Replace(System.Environment.NewLine,Environment.NewLine+"      "),
                             },
                             new HomeDetailActicleModel
                             {
-                                 Image= Contants.BaseUrl + "/" +response.image3,
-                                 Text=response.text3.Replace(@"\r\n","&#13;&#10;&#9;　　 &#13;&#10;&#9;"),
+                                 Image= Contants.BaseUrl + "/"+ response.image3,
+                                 Text=response.text4.Replace(System.Environment.NewLine,Environment.NewLine+"      "),
                             },
                             new HomeDetailActicleModel
                             {
-                                 Image= Contants.BaseUrl + "/"+ response.image4,
-                                 Text=response.text4.Replace(@"\r\n","&#13;&#10;&#9;　　 &#13;&#10;&#9;"),
-                            },
-                            new HomeDetailActicleModel
-                            {
-                                 Image= Contants.BaseUrl + "/"+ response.image5,
-                                 Text=response.text5.Replace(@"\r\n","&#13;&#10;&#9;　　 &#13;&#10;&#9;"),
+                                 Image=Contants.BaseUrl + "/"+ response.image3,
+                                 Text = response.text5.Replace(System.Environment.NewLine,Environment.NewLine+"      "),
                             },
                         },
                     };
@@ -98,15 +102,30 @@ namespace TenUWP.Service
                 return new HomeDetailModel();
             });
 
+
+
             return ret;
         }
 
         public async Task<List<TenIdsModel>> GetContentIds()
         {
-            return await GetIds(Contants.ContentIdsUrl, "ContentIds_");
+            var ids = await GetIds(Contants.ContentIdsUrl, "ContentIds_");
+            foreach (var item in ids)
+            {
+                item.HomeDetailContent = new HomeDetailModel
+                {
+                    Title = item.title,
+                    Date = new DateTime(item.publishtime).ToString("yyyy-MM-dd"),
+                    TitleImage = Contants.BaseUrl + "/" + item.image,
+                    Summary = item.summary,
+                    id = item.id,
+                };
+            }
+
+            return ids;
         }
 
-        public async Task<HomeDetailModel> GetContentDetail(int id)
+        public async Task<HomeDetailModel> GetContentDetail(string id)
         {
             var ret = await StorageHelper.GetCacheAsync<HomeDetailModel>("ContentDetail_" + id, async () =>
             {
@@ -136,10 +155,23 @@ namespace TenUWP.Service
 
         public async Task<List<TenIdsModel>> GetImageIds()
         {
-            return await GetIds(Contants.ImageIdsUrl, "ImageIds_");
+            var ids = await GetIds(Contants.ImageIdsUrl, "ImageIds_");
+            foreach (var item in ids)
+            {
+                item.HomeDetailContent = new HomeDetailModel
+                {
+                    Title = item.title,
+                    Date = new DateTime(item.publishtime).ToString("yyyy-MM-dd"),
+                    TitleImage = Contants.BaseUrl + "/" + item.image,
+                    Summary = item.summary,
+                    id = item.id,
+                };
+            }
+
+            return ids;
         }
 
-        public async Task<HomeDetailModel> GetImageDetail(int id)
+        public async Task<HomeDetailModel> GetImageDetail(string id)
         {
             var ret = await StorageHelper.GetCacheAsync<HomeDetailModel>("ImageDetail_" + id, async () =>
             {

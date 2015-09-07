@@ -8,6 +8,6 @@ namespace TenUWP.Service
 {
     public class CacheKey
     {
-
+        public static readonly string FAV_KEY = "FAV_KEY";
     }
 }

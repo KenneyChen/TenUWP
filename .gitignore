@@ -189,3 +189,7 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 /packages
+/*.rar
+/App1
+/obj
+/ps

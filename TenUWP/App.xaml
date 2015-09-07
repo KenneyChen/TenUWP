@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Style/Style.xaml"/>
+                <ResourceDictionary Source="Style/Core.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <local:NullableBooleanToBoolean x:Key="NullableBooleanToBooleanKey" />
             <local:Int32ToColor x:Key="Int32ToColorKey" />

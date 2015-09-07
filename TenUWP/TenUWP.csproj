@@ -19,6 +19,10 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>TenUWP_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>BC32A09C885F42A633662FB78F6E4CA36A2C6096</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppxBundle>Always</AppxBundle>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -103,7 +107,16 @@
     <Compile Include="Converter\Int32ToColor.cs" />
     <Compile Include="Converter\Int32ToVisibility.cs" />
     <Compile Include="Converter\NullableBooleanToBoolean.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Model\FavModel.cs" />
+    <Compile Include="Service\FavService.cs" />
+    <Compile Include="Tools\FavTemplateSelector.cs" />
+    <Compile Include="Views\AboutMePage.xaml.cs">
+      <DependentUpon>AboutMePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FavPage.xaml.cs">
+      <DependentUpon>FavPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\HomeDetailResponse.cs" />
@@ -112,7 +125,6 @@
     <Compile Include="Service\CacheKey.cs" />
     <Compile Include="Service\Contants.cs" />
     <Compile Include="Service\ShigeService.cs" />
-    <Compile Include="Static\BtnGlobal.cs" />
     <Compile Include="Tools\AppResources.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +135,8 @@
     <None Include="TenUWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Image\loading-238x184.png" />
+    <Content Include="Assets\Image\SplashScreen_text.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -137,13 +151,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\AboutMePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FavPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SplashPage.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Style\Core.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Style\Style.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -151,11 +173,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ZHC.Common.UWP">
-      <HintPath>..\_dll\ZHC.Common.UWP.dll</HintPath>
-    </Reference>
+    <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\自己代码库\ZHC.Common.UWP\ZHC.Common.UWP\ZHC.Common.UWP.csproj">
+      <Project>{8e2d7766-0747-4de9-9331-d85dd9e3c7bb}</Project>
+      <Name>ZHC.Common.UWP</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

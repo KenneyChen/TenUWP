@@ -14,8 +14,9 @@ namespace TenUWP
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return value.Equals(Int32.Parse(parameter.ToString())) ? new SolidColorBrush(Colors.Yellow) :
-                new SolidColorBrush(Colors.Black);
+            //bebfc0
+            return value.Equals(Int32.Parse(parameter.ToString())) ? new SolidColorBrush(Color.FromArgb(255, 0xbe, 0xbf, 0xc0)) :
+                new SolidColorBrush(Color.FromArgb(255, 0xa6, 0xa7, 0xa9));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
